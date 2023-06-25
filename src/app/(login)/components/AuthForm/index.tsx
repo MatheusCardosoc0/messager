@@ -1,72 +1,25 @@
 'use client'
 
-import { useCallback, useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import Input from '@/components/Input'
 import Button from '@/components/Button'
 import { useLoginFormState } from '@/context/useLoginFormState'
 import AuthSocialButton from './AuthSocialButton'
 import { BsGithub, BsGoogle } from 'react-icons/bs'
-
-const schema = z.object({
-  name: z.optional(z.string()),
-  email: z.string().email('Insira um email valido'),
-  password: z.string().min(8, 'Insira uma senha com mais de 8 caracteres'),
-})
-type FormProps = z.infer<typeof schema>
-
-type Variants = 'LOGIN' | 'REGISTER'
+import { useFormFunctions } from './useFormFunctions'
 
 const AuthForm = () => {
-  const [variant, setVariant] = useState<Variants>('LOGIN')
-  const [isLoading, setIsLoading] = useState(false)
+  const {
+    errors,
+    handleSubmit,
+    isLoading,
+    onSubmit,
+    register,
+    socialAction,
+    toggleVariant,
+    variant,
+  } = useFormFunctions()
 
   const { isOpen } = useLoginFormState()
-
-  const toggleVariant = useCallback(() => {
-    if (variant === 'LOGIN') {
-      setVariant('REGISTER')
-    } else {
-      setVariant('LOGIN')
-    }
-  }, [variant])
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormProps>({
-    defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-    },
-    resolver: zodResolver(schema),
-    reValidateMode: 'onChange',
-  })
-
-  const onSubmit: SubmitHandler<FormProps> = (data) => {
-    setIsLoading(true)
-    if (variant === 'REGISTER') {
-      if (!data.name) {
-        return alert('Insira um nome valido!')
-      }
-      // axios register
-    }
-
-    if (variant === 'LOGIN') {
-      // nextAuth SignIn
-    }
-    setIsLoading(false)
-  }
-
-  const socialAction = (action: string) => {
-    setIsLoading(true)
-
-    // social signIn
-  }
 
   if (isOpen === false) {
     return <div />
@@ -77,20 +30,22 @@ const AuthForm = () => {
       className="
         ANIMATION-FORM
         mt-4
+        w-[90%]
+        max-w-md
         transition-all
         duration-100
         sm:mx-auto
-        sm:w-full
-        sm:max-w-md
+        sm:max-w-lg
       "
     >
       <div
         className="
+          rounded-lg
           bg-white
           px-4
           py-8
           shadow
-          sm:rounded-lg
+          sm:rounded-xl
           sm:px-10
         "
       >
@@ -146,7 +101,7 @@ const AuthForm = () => {
                 className="
                   w-full
                   border-t
-                  border-gray-300
+                  border-cyan-500
                 "
               />
             </div>
@@ -184,7 +139,7 @@ const AuthForm = () => {
             </span>
 
             <button
-              className="text-xl text-neutral-800 underline hover:text-purple-700"
+              className="text-xl text-neutral-800 underline hover:text-amber-600"
               onClick={() => toggleVariant()}
             >
               {variant === 'LOGIN' ? 'SignIn!' : 'Login!'}

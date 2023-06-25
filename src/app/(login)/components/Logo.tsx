@@ -24,14 +24,13 @@ const Logo = () => {
         alt="logo"
         className={clsx(
           `
-          h-[300px]
-          w-[300px]
+         
           cursor-pointer
           rounded-full
           drop-shadow-md
         `,
           isOpen && 'h-[100px] w-[100px]',
-          !isOpen && 'ANIMATION-PULSE',
+          !isOpen && 'ANIMATION-PULSE h-[300px] w-[300px]',
         )}
       />
 

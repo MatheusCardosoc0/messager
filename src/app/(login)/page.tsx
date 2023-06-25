@@ -3,14 +3,8 @@ import Logo from './components/Logo'
 
 export default function Login() {
   return (
-    <div
-      className="flex h-screen w-full flex-col items-center justify-center overflow-hidden bg-cover"
-      style={{
-        backgroundImage: 'url(/background.jpeg)',
-      }}
-    >
+    <div className="BACKGROUND-ANIMATION flex h-screen w-full flex-col items-center justify-center overflow-hidden">
       <Logo />
-
       <AuthForm />
     </div>
   )

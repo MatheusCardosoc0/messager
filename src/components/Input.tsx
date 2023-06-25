@@ -52,21 +52,22 @@ const Input: React.FC<InputProps> = ({
         {errors[id]?.message}
       </span> */}
 
-      <div className="relative w-full">
+      <div className="relative w-full drop-shadow-[0px_0px_4px_#00000080]">
         <input
           {...register(id, { required })}
           disabled={disabled}
+          autoComplete="off"
           type={typeInput}
           className={clsx(
             `
             peer
             w-full
             rounded-lg
-            bg-black
+            bg-white
             px-2
             pb-2
-            pt-8
-            text-white
+            pt-6
+            text-black
             outline-none
             ring-4
             focus:ring-amber-400`,
@@ -84,7 +85,7 @@ const Input: React.FC<InputProps> = ({
             origin-[0]
             -translate-y-1/2
             font-bold
-            text-neutral-200
+            text-black
             transition
             duration-150
             peer-placeholder-shown:translate-y-12
@@ -108,14 +109,10 @@ const Input: React.FC<InputProps> = ({
               right-2
               top-2
               text-4xl
-              text-white
+              text-black
             "
           >
-            {typeInput === 'password' ? (
-              <AiFillEyeInvisible />
-            ) : (
-              <AiFillEye className="text-white" />
-            )}
+            {typeInput === 'password' ? <AiFillEyeInvisible /> : <AiFillEye />}
           </span>
         )}
       </div>

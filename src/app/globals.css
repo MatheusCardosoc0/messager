@@ -21,6 +21,22 @@
 }
 
 @keyframes form-appear {
-  0%{transform: translateY(100px); opacity: 50}
+  0%{transform: translateY(100px); opacity: 50%}
   100%{transform: translateY(0px); opacity: 100%;}
+}
+
+.BACKGROUND-ANIMATION{
+  background-image: url('/background.jpeg');
+  background-repeat: no-repeat;
+  background-position: center;
+  animation: movementBackground 10s infinite linear;
+}
+
+@keyframes movementBackground {
+  0% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
