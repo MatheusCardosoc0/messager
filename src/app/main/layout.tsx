@@ -1,4 +1,4 @@
-import Navbar from '@/components/Navbar'
+import { Sidebar } from './components/sidebar/Sidebar'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -6,9 +6,7 @@ interface LayoutProps {
 
 export default function layout({ children }: LayoutProps) {
   return (
-    <div>
-      <Navbar />
-      {children}
-    </div>
+    // @ts-expect-error Server Component
+    <Sidebar>{children}</Sidebar>
   )
 }

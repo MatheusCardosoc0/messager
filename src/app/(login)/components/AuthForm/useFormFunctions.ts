@@ -51,6 +51,7 @@ export function useFormFunctions() {
       }
       axios
         .post('/api/register', data)
+        .then(() => signIn('credentials', data))
         .catch(() => toast.error('Ocorreu um erro'))
         .finally(() => setIsLoading(false))
     }
@@ -58,10 +59,7 @@ export function useFormFunctions() {
     if (variant === 'LOGIN') {
       // nextAuth SignIn
 
-      signIn('credentials', {
-        ...data,
-        redirect: false,
-      })
+      signIn('credentials', data)
         .then((callback) => {
           if (callback?.error) {
             toast.error('Credenciais invalidas')
@@ -71,7 +69,9 @@ export function useFormFunctions() {
             toast.success('logado com sucesso')
           }
         })
-        .finally(() => setIsLoading(false))
+        .finally(() => {
+          setIsLoading(false)
+        })
     }
   }
 
