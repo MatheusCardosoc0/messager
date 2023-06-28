@@ -10,16 +10,21 @@ export async function middleware(request: NextRequest) {
   const redirectUrl = new URL('/', request.url)
 
   const regex = new RegExp('\\b' + 'main' + '\\b', 'i')
+  const regex2 = new RegExp('\\b' + 'conversations' + '\\b', 'i')
 
   if (!token && regex.test(request.url)) {
     return NextResponse.redirect(redirectUrl)
   }
 
-  if (token && !regex.test(request.url)) {
+  if (!token && regex2.test(request.url)) {
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  if (token && !regex.test(request.url) && !regex2.test(request.url)) {
     return NextResponse.redirect(new URL('/main', request.url))
   }
 }
 
 export const config = {
-  matcher: ['/main/:path*', '/'],
+  matcher: ['/main/:path*', '/', '/conversations/:path*'],
 }
