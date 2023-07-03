@@ -1,7 +1,7 @@
 'use client'
 
 import useConversation from '@/hooks/useConversation'
-import EmptyState from '../main/components/EmptyState'
+import EmptyState from '@/components/EmptyState'
 import clsx from 'clsx'
 
 export default function HomeConversation() {
