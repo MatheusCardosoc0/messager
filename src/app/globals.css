@@ -40,3 +40,7 @@
     background-position: 100% 0;
   }
 }
+
+.WIDTH{
+  width: calc(100% - 25rem);
+}

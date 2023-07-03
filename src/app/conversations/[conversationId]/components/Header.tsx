@@ -4,7 +4,7 @@ import AvatarUser from '@/app/main/components/sidebar/AvatarUser'
 import useOtherUser from '@/hooks/useOtherUser'
 import { Conversation, User } from '@prisma/client'
 import Link from 'next/link'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { HiChevronLeft } from 'react-icons/hi'
 import { HiEllipsisHorizontal } from 'react-icons/hi2'
 
@@ -16,6 +16,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ conversation }) => {
   const otherUser = useOtherUser(conversation)
+  const [drawerOpen, setDrawerOpen] = useState(false)
 
   const statusText = useMemo(() => {
     if (conversation.isGroup) {

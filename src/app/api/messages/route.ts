@@ -38,7 +38,7 @@ export async function POST(request: Request) {
       },
     })
 
-    const updatedConversation = await prisma.conversation.update({
+    await prisma.conversation.update({
       where: {
         id: conversationId,
       },

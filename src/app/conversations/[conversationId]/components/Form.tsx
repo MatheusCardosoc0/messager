@@ -7,6 +7,8 @@ import { HiPhoto } from 'react-icons/hi2'
 import { z } from 'zod'
 import MessageInput from './MessageInput'
 import { HiPaperAirplane } from 'react-icons/hi'
+import { CldUploadButton } from 'next-cloudinary'
+import { useRouter } from 'next/navigation'
 
 const Schema = z.object({
   message: z.string(),
@@ -16,6 +18,7 @@ type FormProps = z.infer<typeof Schema>
 
 const Form = () => {
   const { conversationId } = useConversation()
+  const router = useRouter()
 
   const {
     register,
@@ -28,13 +31,21 @@ const Form = () => {
     },
   })
 
+  const handleUpload = (result: any) => {
+    axios.post('/api/messages', {
+      image: result?.info?.secure_url,
+      conversationId,
+    })
+  }
+
   const onSubmit: SubmitHandler<FormProps> = (data) => {
-    console.log({ ...data, conversationId })
     setValue('message', '', { shouldValidate: true })
     axios.post('/api/messages', {
       ...data,
       conversationId,
     })
+
+    router.refresh()
   }
 
   return (
@@ -50,10 +61,17 @@ const Form = () => {
         bg-white
         px-4
         py-4
+        lg:w-[calc(100%_-_25rem)]
         lg:gap-4
       "
     >
-      <HiPhoto size={30} className="text-sky-500" />
+      <CldUploadButton
+        options={{ maxFiles: 1 }}
+        onUpload={handleUpload}
+        uploadPreset="ob688nmd"
+      >
+        <HiPhoto size={30} className="text-sky-500" />
+      </CldUploadButton>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex w-full items-center gap-2 lg:gap-4"

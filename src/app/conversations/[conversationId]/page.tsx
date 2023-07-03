@@ -1,9 +1,9 @@
 import getConversationById from '@/actions/getConversationById'
-import getMessages from '@/actions/getMessages'
 import EmptyState from '@/components/EmptyState'
 import Header from './components/Header'
 import Body from './components/Body'
 import Form from './components/Form'
+import getMessages from '@/actions/getMessages'
 
 interface IParams {
   conversationId: string
@@ -11,6 +11,18 @@ interface IParams {
 
 const ConversationId = async ({ params }: { params: IParams }) => {
   const conversation = await getConversationById(params.conversationId)
+
+  // const messages = await fetch(
+  //   `http://localhost:3000/api/messages/${params.conversationId}`,
+  //   {
+  //     next: {
+  //       revalidate: 0,
+  //     },
+  //   },
+  // )
+
+  // const json = await messages.json()
+
   const messages = await getMessages(params.conversationId)
 
   if (!conversation) {
@@ -27,7 +39,7 @@ const ConversationId = async ({ params }: { params: IParams }) => {
     <div className="h-full lg:pl-80">
       <div className="flex h-full flex-col">
         <Header conversation={conversation} />
-        <Body />
+        <Body initialMessages={messages} />
         <Form />
       </div>
     </div>

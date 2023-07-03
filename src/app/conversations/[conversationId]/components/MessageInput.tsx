@@ -1,9 +1,9 @@
 'use client'
 
-import { FieldErrors, FieldValues, UseFormRegister } from 'react-hook-form'
+import { FieldErrors, UseFormRegister } from 'react-hook-form'
 
 interface MessageInputProps {
-  id: string
+  id: 'message'
   errors: FieldErrors
   required?: boolean
   type?: string
