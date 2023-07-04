@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { HiChevronLeft } from 'react-icons/hi'
 import { HiEllipsisHorizontal } from 'react-icons/hi2'
+import ProfileDrawer from './ProfileDrawer'
 
 interface HeaderProps {
   conversation: Conversation & {
@@ -27,8 +28,14 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
   }, [conversation])
 
   return (
-    <div
-      className="
+    <>
+      <ProfileDrawer
+        data={conversation}
+        isOpen={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+      />
+      <div
+        className="
         flex
         w-full
         items-center
@@ -41,11 +48,11 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
         sm:px-4
         lg:px-6
       "
-    >
-      <div className="flex items-center gap-3">
-        <Link
-          href={'/conversations'}
-          className="
+      >
+        <div className="flex items-center gap-3">
+          <Link
+            href={'/conversations'}
+            className="
             block
             cursor-pointer
             text-sky-500
@@ -53,34 +60,35 @@ const Header: React.FC<HeaderProps> = ({ conversation }) => {
             hover:text-sky-600
             lg:hidden
           "
-        >
-          <HiChevronLeft size={32} />
-        </Link>
-        <AvatarUser user={otherUser} />
-        <div className="flex flex-col">
-          <div>{conversation.name || otherUser.name}</div>
-          <div
-            className="
+          >
+            <HiChevronLeft size={32} />
+          </Link>
+          <AvatarUser user={otherUser} />
+          <div className="flex flex-col">
+            <div>{conversation.name || otherUser.name}</div>
+            <div
+              className="
               text-sm
               font-light
               text-neutral-500
             "
-          >
-            {statusText}
+            >
+              {statusText}
+            </div>
           </div>
         </div>
-      </div>
-      <HiEllipsisHorizontal
-        size={32}
-        onClick={() => {}}
-        className="
+        <HiEllipsisHorizontal
+          size={32}
+          onClick={() => setDrawerOpen(true)}
+          className="
           cursor-pointer
           text-sky-500
           transition
           hover:text-sky-600
         "
-      />
-    </div>
+        />
+      </div>
+    </>
   )
 }
 
